@@ -2,7 +2,7 @@
 
 body {
     font-family: 'Bebas Neue', Arial, sans-serif;
-    background-color: #2e2e2e;
+    background: linear-gradient(135deg, #2e2e2e, #1e1e1e);
     color: #e0e0e0;
     display: flex;
     flex-direction: column;
@@ -12,14 +12,30 @@ body {
     margin: 0;
     padding: 20px;
     text-align: center;
+    animation: fadeIn 1s ease-in-out;
+}
+
+body {
+    /* Agrega esto al body en styles.css */
+    background: linear-gradient(135deg, #2e2e2e, #1e1e1e), 
+                repeating-linear-gradient(
+                    45deg,
+                    rgba(76, 82, 32, 0.2) 0px,
+                    rgba(76, 82, 32, 0.2) 20px,
+                    transparent 20px,
+                    transparent 40px
+                );
+    background-size: 80px 80px;
+    /* ... resto de los estilos */
 }
 
 h1 {
-    font-size: 2.5em;
+    font-size: 2.8em;
     color: #d4af37;
     text-shadow: 2px 2px #000;
     margin-bottom: 30px;
     word-wrap: break-word;
+    animation: slideDown 1s ease-out;
 }
 
 .container, .manual-inputs {
@@ -27,16 +43,18 @@ h1 {
     background-color: #3e3e3e;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    box-shadow: 0 0 15px rgba(0,0,0,0.6);
     width: 90%;
     max-width: 400px;
     box-sizing: border-box;
+    animation: fadeInUp 1s ease-out;
 }
 
 label {
     display: block;
     margin: 10px 0 5px;
     font-size: 1.2em;
+    letter-spacing: 1px;
 }
 
 input[type="number"], input[type="text"] {
@@ -49,6 +67,13 @@ input[type="number"], input[type="text"] {
     background-color: #222;
     color: #fff;
     font-size: 1em;
+    transition: transform 0.2s;
+}
+
+input:focus {
+    outline: none;
+    transform: scale(1.05);
+    border-color: #d4af37;
 }
 
 button {
@@ -60,39 +85,58 @@ button {
     border: none;
     border-radius: 5px;
     font-size: 1em;
-    transition: background-color 0.3s, transform 0.2s;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
     width: 80%;
     max-width: 300px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
 }
 
 button:hover {
     background-color: #5e6b2e;
-    transform: scale(1.05);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 12px rgba(0,0,0,0.4);
 }
 
 button:active {
-    transform: scale(0.95);
+    transform: translateY(1px);
 }
 
 #result {
     margin-top: 30px;
-    font-size: 1.3em;
+    font-size: 1.4em;
     background-color: #1e1e1e;
     padding: 15px;
     border-radius: 8px;
     border: 2px solid #d4af37;
     display: inline-block;
-    box-shadow: 0 0 10px rgba(0,0,0,0.7);
+    box-shadow: 0 0 15px rgba(0,0,0,0.7);
     width: 90%;
     max-width: 400px;
     box-sizing: border-box;
+    animation: fadeInUp 1s ease-out;
 }
 
 strong {
     color: #d4af37;
 }
 
-/* Responsivo para pantallas pequeñas */
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsivo */
 @media (max-width: 600px) {
     h1 {
         font-size: 2em;
@@ -110,6 +154,6 @@ strong {
     }
 
     #result {
-        font-size: 1.1em;
+        font-size: 1.2em;
     }
 }
