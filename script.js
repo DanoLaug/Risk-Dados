@@ -88,11 +88,36 @@ function displayResult(attackerRolls, defenderRolls) {
         }
     }
 
-    document.getElementById('result').innerHTML = `
-        <p><strong>Atacante:</strong> ${attackerRolls.join(', ')}</p>
-        <p><strong>Defensor:</strong> ${defenderRolls.join(', ')}</p>
+    const resultDiv = document.getElementById('result');
+    resultDiv.innerHTML = `
+        <p><strong>Atacante:</strong> ${generateDiceDisplay(attackerRolls)}</p>
+        <p><strong>Defensor:</strong> ${generateDiceDisplay(defenderRolls)}</p>
         <p><strong>Resultado:</strong> Atacante pierde ${attackerLosses} tropa(s), Defensor pierde ${defenderLosses} tropa(s).</p>
+        ${generateExplosions(attackerLosses + defenderLosses)}
     `;
+
+    resultDiv.classList.add('impact');
+    setTimeout(() => resultDiv.classList.remove('impact'), 500);
+
+    updateHistory(attackerRolls, defenderRolls, attackerLosses, defenderLosses);
+}
+
+function generateDiceDisplay(rolls) {
+    return rolls.map(roll => `
+        <span class="dice-roll">🎲${roll}</span>
+    `).join(' ');
+}
+
+
+
+function generateExplosions(count) {
+    let explosions = '';
+    for (let i = 0; i < count; i++) {
+        explosions += `<svg class="explosion" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 64 64">
+            <path fill="#ffcc00" d="M32 0 L38 24 L64 32 L38 40 L32 64 L26 40 L0 32 L26 24 Z"/>
+        </svg>`;
+    }
+    return explosions;
 }
 
 function reset() {
@@ -104,4 +129,23 @@ function reset() {
     document.getElementById('defender-inputs').innerHTML = '';
     document.getElementById('result').innerHTML = '';
     toggleMode('auto');
+}
+
+function updateHistory(attackerRolls, defenderRolls, attackerLosses, defenderLosses) {
+    const historyList = document.getElementById('history-list');
+    const entry = document.createElement('li');
+    const timestamp = new Date().toLocaleTimeString();
+
+    entry.innerHTML = `
+        <strong>${timestamp}</strong>: 
+        Atacante [${attackerRolls.join(', ')}] - Defensor [${defenderRolls.join(', ')}] 
+        → Atacante pierde ${attackerLosses}, Defensor pierde ${defenderLosses}.
+    `;
+
+    historyList.prepend(entry); // Mostrar el más reciente arriba
+
+    // Limitar a 10 entradas en historial
+    if (historyList.childNodes.length > 10) {
+        historyList.removeChild(historyList.lastChild);
+    }
 }

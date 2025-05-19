@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Black+Ops+One&display=swap');
 
 body {
     font-family: 'Bebas Neue', Arial, sans-serif;
@@ -12,24 +12,19 @@ body {
     margin: 0;
     padding: 20px;
     text-align: center;
-    animation: fadeIn 1s ease-in-out;
+    /* ✅ Fondo corregido */
+    background-image: url('images/vecteezy_military-camouflage-army-cloth-texture-background_6899617.jpg');
+    background-size: cover; /* Mantiene cobertura sin deformación */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed; /* Mantiene estático al hacer scroll */
+    /* ❌ Eliminamos la animación de entrada para evitar el zoom */
+    /* animation: fadeIn 1s ease-in-out; */
 }
 
-body {
-    /* Agrega esto al body en styles.css */
-    background: linear-gradient(135deg, #2e2e2e, #1e1e1e), 
-                repeating-linear-gradient(
-                    45deg,
-                    rgba(76, 82, 32, 0.2) 0px,
-                    rgba(76, 82, 32, 0.2) 20px,
-                    transparent 20px,
-                    transparent 40px
-                );
-    background-size: 80px 80px;
-    /* ... resto de los estilos */
-}
 
 h1 {
+    font-family: 'Black Ops One', Arial, sans-serif;
     font-size: 2.8em;
     color: #d4af37;
     text-shadow: 2px 2px #000;
@@ -116,11 +111,34 @@ button:active {
     animation: fadeInUp 1s ease-out;
 }
 
+/* ✨ Impact Effect for Results */
+.impact {
+    animation: impactEffect 0.5s ease;
+}
+
+@keyframes impactEffect {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+💥 Explosion Animation
+.explosion {
+    display: inline-block;
+    animation: explosionAnim 0.5s ease forwards;
+}
+
+@keyframes explosionAnim {
+    0% { transform: scale(0); opacity: 1; }
+    50% { transform: scale(1.5); opacity: 0.8; }
+    100% { transform: scale(2); opacity: 0; }
+}
+
 strong {
     color: #d4af37;
 }
 
-/* Animaciones */
+/* Animaciones de entrada */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -136,7 +154,7 @@ strong {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsivo */
+/* 📱 Responsivo */
 @media (max-width: 600px) {
     h1 {
         font-size: 2em;
@@ -156,4 +174,48 @@ strong {
     #result {
         font-size: 1.2em;
     }
+}
+
+#history {
+    margin-top: 40px;
+    width: 90%;
+    max-width: 400px;
+    background-color: #3e3e3e;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.6);
+}
+
+#history h2 {
+    font-family: 'Black Ops One', Arial, sans-serif;
+    color: #d4af37;
+    margin-bottom: 15px;
+}
+
+#history-list {
+    list-style: none;
+    padding: 0;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+#history-list li {
+    background-color: #1e1e1e;
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border-left: 4px solid #d4af37;
+    font-size: 0.95em;
+    text-align: left;
+}
+
+.dice-roll {
+    display: inline-block;
+    animation: rollAnim 0.8s ease forwards;
+}
+
+@keyframes rollAnim {
+    0% { transform: rotate(0deg) scale(1); opacity: 0.5; }
+    50% { transform: rotate(360deg) scale(1.5); opacity: 1; }
+    100% { transform: rotate(720deg) scale(1); opacity: 1; }
 }
